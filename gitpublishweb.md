@@ -9,3 +9,6 @@ in scripts sectio
 
 in console Command
     npm run deploy
+
+add the Base Path in the vite.config.ts
+    base: "./"
