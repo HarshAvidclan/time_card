@@ -1,8 +1,10 @@
+// src/App.tsx
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+// use HashRouter
+import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -18,32 +20,32 @@ const App = () => (
       <AuthProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
+        {/* Using HashRouter */}
+        <Router>
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/" element={<Layout />}>
               <Route index element={<Navigate to="/login" replace />} />
-              <Route 
-                path="/contractor" 
+              <Route
+                path="/contractor"
                 element={
                   <ProtectedRoute requiredRole="contractor">
                     <ContractorDashboard />
                   </ProtectedRoute>
-                } 
+                }
               />
-              <Route 
-                path="/admin" 
+              <Route
+                path="/admin"
                 element={
                   <ProtectedRoute requiredRole="admin">
                     <AdminDashboard />
                   </ProtectedRoute>
-                } 
+                }
               />
             </Route>
-            {/* Catch-all route */}
             <Route path="*" element={<Navigate to="/login" replace />} />
           </Routes>
-        </BrowserRouter>
+        </Router>
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
